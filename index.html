@@ -229,11 +229,10 @@ transform:scale(1.1) rotate(0deg);
 }
 
 @media (max-width: 768px) {
-  #polaroids {
-    flex-wrap: wrap; /* 👈 permite que bajen */
-    justify-content: center;
-    gap: 10px;
-    top: 10px;
+ #polaroids {
+    position: relative; /* 👈 importante */
+    left: auto;
+    transform: none;
   }
 
   .polaroid {
