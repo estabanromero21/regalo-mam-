@@ -232,7 +232,11 @@ transform:scale(1.1) rotate(0deg);
  #polaroids {
     position: relative; /* 👈 importante */
     left: auto;
+    left:auto;
     transform: none;
+    flex-direction: row; /* 👈 se mantiene horizontal */
+    flex-wrap: wrap;     /* 👈 baja si no cabe */
+    justify-content: center;
   }
 
   .polaroid {
