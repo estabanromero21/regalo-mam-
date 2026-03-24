@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sorpresa mágica</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+flex-direction: column;
+align-items:center;
+font-family:Arial;
+background:linear-gradient(135deg,#a18cd1,#fbc2eb);
+overflow:hidden;
+color:white;
+}
+
+/* 🎥 GIF DE FONDO */
+.fondo-gif{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+object-fit:cover;
+opacity:0.15; /* 👈 bajito para que no moleste */
+z-index:0;
+}
+
+/* 📝 CONTENEDOR MENSAJE */
+.contenido{
+position:relative;
+z-index:10;
+text-align:center;
+padding:20px;
+max-width:90vw;
+color: rgb(160, 38, 69);
+}
+
+/* ✨ TEXTO */
+#texto{
+font-size:28px;
+line-height:1.5;
+border-right:3px solid white;
+white-space:pre-wrap;
+overflow:hidden;
+display:inline-block;
+animation:parpadeo 1s infinite;
+}
+
+/* cursor */
+@keyframes parpadeo{
+0%{ border-color:white; }
+50%{ border-color:transparent; }
+100%{ border-color:white; }
+}
+
+@media(max-width:600px){
+#texto{
+font-size:20px;
+}
+}
+
+.navegacion{
+margin-top:40px;
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+z-index: 10;
+}
+
+.navegacion a{
+text-decoration:none;
+background:#ff6b81;
+color:white;
+padding:10px 20px;
+border-radius:10px;
+font-weight:bold;
+transition:0.3s;
+}
+
+.navegacion a:hover{
+transform:scale(1.1);
+background:#ff4d6d;
+}
+
+/* ✨ EMOJIS FLOTANTES */
+.emoji{
+position:fixed;
+top:100vh;
+animation:flotarEmoji 6s linear infinite;
+pointer-events:none;
+z-index:5;
+}
+
+@keyframes flotarEmoji{
+0%{
+transform:translateY(0);
+opacity:1;
+}
+100%{
+transform:translateY(-110vh);
+opacity:0;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🎥 AQUÍ PONES TU GIF -->
+<img src="imagenes/gif1.gif" class="fondo-gif">
+
+<div class="contenido">
+<div id="texto"></div>
+</div>
+
+<!-- 🔊 AUDIO -->
+<audio id="musica" src="musica/mariachi.mpeg"></audio>
+
+<script>
+
+/* ✨ TEXTO QUE SE ESCRIBE */
+let mensaje = `Mamá...
+
+No hay palabras suficientes para agradecerte todo lo que has hecho por mí.
+
+Cada esfuerzo, cada consejo, cada momento...
+vive en mí.
+
+Hoy solo quiero recordarte algo:
+
+Eres increíble.
+Y te amo con todo mi corazón. 💖`;
+
+/* efecto escribir */
+let i = 0;
+function escribir(){
+
+if(i < mensaje.length){
+document.getElementById("texto").innerHTML += mensaje.charAt(i);
+i++;
+setTimeout(escribir, 40); // velocidad (más bajo = más rápido)
+}
+
+}
+
+/* 🔊 reproducir audio al entrar */
+window.onload = function(){
+
+let audio = document.getElementById("musica");
+
+audio.play().catch(()=>{
+// si el navegador bloquea autoplay, se activará al primer clic
+document.body.addEventListener("click", ()=>{
+audio.play();
+});
+});
+
+escribir();
+
+}
+
+/* ✨ CREAR EMOJIS */
+function crearEmoji(tipo){
+
+const emoji = document.createElement("div");
+emoji.classList.add("emoji");
+emoji.innerHTML = tipo;
+
+emoji.style.left = Math.random() * 100 + "vw";
+emoji.style.fontSize = (20 + Math.random()*25) + "px";
+
+document.body.appendChild(emoji);
+
+setTimeout(() => {
+emoji.remove();
+}, 6000);
+
+}
+
+/* 🚀 INICIO */
+window.onload = function(){
+
+let audio = document.getElementById("musica");
+
+audio.play().catch(()=>{
+document.body.addEventListener("click", ()=>{
+audio.play();
+});
+});
+
+escribir();
+
+/* ✨ ACTIVAR EMOJIS */
+setInterval(() => crearEmoji("✨"), 800);
+setInterval(() => crearEmoji("🦋"), 1200);
+
+}
+
+</script>
+
+<div class="navegacion">
+
+<a href="index.html">🏠 Inicio</a>
+
+<a href="mensajes.html">💌 Mensajes</a>
+
+<a href="sorpresa.html" class="boton-regalo">🎁 Sorpresa</a>
+
+<a href="fotos.html">📸 Fotos</a>
+
+<a href="chistes.html">😂 Chistes</a>
+
+</div>
+
+</body>
+</html>
